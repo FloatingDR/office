@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easy.office.mapper.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.easy.office.model.UserInfo" >
+    <id column="user_info_id" property="userInfoId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="work_place" property="workPlace" jdbcType="VARCHAR" />
+    <result column="work_phone" property="workPhone" jdbcType="VARCHAR" />
+    <result column="family_address" property="familyAddress" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_info_id, user_id, img, position, work_place, work_phone, family_address, email
+  </sql>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_info
+    where user_info_id = #{userInfoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.easy.office.model.UserInfo" >
+    insert into user_info (user_info_id, user_id, img, 
+      position, work_place, work_phone, 
+      family_address, email)
+    values (#{userInfoId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{workPlace,jdbcType=VARCHAR}, #{workPhone,jdbcType=VARCHAR}, 
+      #{familyAddress,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.easy.office.model.UserInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userInfoId != null" >
+        user_info_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="workPlace != null" >
+        work_place,
+      </if>
+      <if test="workPhone != null" >
+        work_phone,
+      </if>
+      <if test="familyAddress != null" >
+        family_address,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userInfoId != null" >
+        #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="workPlace != null" >
+        #{workPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="workPhone != null" >
+        #{workPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="familyAddress != null" >
+        #{familyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.easy.office.model.UserInfo" >
+    update user_info
+    <set >
+      <if test="img != null and img!=''" >
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null and position !='' " >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="workPlace != null and workPlace != ''" >
+        work_place = #{workPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="workPhone != null and workPhone != ''" >
+        work_phone = #{workPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="familyAddress != null and familyAddress != ''" >
+        family_address = #{familyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null and email!=''" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.easy.office.model.UserInfo" >
+    update user_info
+    set user_id = #{userId,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      work_place = #{workPlace,jdbcType=VARCHAR},
+      work_phone = #{workPhone,jdbcType=VARCHAR},
+      family_address = #{familyAddress,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR}
+    where user_info_id = #{userInfoId,jdbcType=INTEGER}
+  </update>
+</mapper>

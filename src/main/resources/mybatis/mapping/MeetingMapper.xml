@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easy.office.mapper.MeetingMapper" >
+  <resultMap id="BaseResultMap" type="com.easy.office.model.Meeting" >
+    <id column="meeting_id" property="meetingId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="place" property="place" jdbcType="VARCHAR" />
+    <result column="attend" property="attend" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    meeting_id, name, date, place, attend
+  </sql>
+  <select id="all" resultMap="BaseResultMap">
+    select * from meeting
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from meeting
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMeetingIdList" resultMap="BaseResultMap" parameterType="List">
+    select *
+    from meeting
+    where meeting_id in
+    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+  <select id="getIdByNameOrDate" resultType="integer">
+    select IFNULL(MAX(meeting_id),-1)
+    from meeting
+    <where>
+      <if test="name!=null and name!=''">
+        and name=#{name}
+      </if>
+      <if test="date!=null and date!=''">
+        and date=#{date}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from meeting
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.easy.office.model.Meeting" >
+    insert into meeting (meeting_id, name, date, 
+      place, attend)
+    values (#{meetingId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
+      #{place,jdbcType=VARCHAR}, #{attend,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.easy.office.model.Meeting" >
+    insert into meeting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="meetingId != null" >
+        meeting_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="place != null" >
+        place,
+      </if>
+      <if test="attend != null" >
+        attend,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="meetingId != null" >
+        #{meetingId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="place != null" >
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="attend != null" >
+        #{attend,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.easy.office.model.Meeting" >
+    update meeting
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="place != null" >
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="attend != null" >
+        attend = #{attend,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.easy.office.model.Meeting" >
+    update meeting
+    set name = #{name,jdbcType=VARCHAR},
+      date = #{date,jdbcType=TIMESTAMP},
+      place = #{place,jdbcType=VARCHAR},
+      attend = #{attend,jdbcType=VARCHAR}
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </update>
+</mapper>

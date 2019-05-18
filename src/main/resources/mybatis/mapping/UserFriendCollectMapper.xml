@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easy.office.mapper.UserFriendCollectMapper" >
+  <resultMap id="BaseResultMap" type="com.easy.office.model.UserFriendCollect" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="frien_id" property="frienId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, frien_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_friend_collect
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getMyCollectedFriendIds" resultType="integer" parameterType="java.lang.Integer">
+     select frien_id
+     from user_friend_collect
+     where user_id= #{userId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_friend_collect
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteCollect" parameterType="com.easy.office.model.UserFriendCollect">
+    delete from user_friend_collect
+    where user_id=#{userId} and frien_id=#{frienId}
+  </delete>
+  <insert id="insert" parameterType="com.easy.office.model.UserFriendCollect" >
+    insert into user_friend_collect (id, user_id, frien_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{frienId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.easy.office.model.UserFriendCollect" >
+    insert into user_friend_collect
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="frienId != null" >
+        frien_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="frienId != null" >
+        #{frienId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.easy.office.model.UserFriendCollect" >
+    update user_friend_collect
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="frienId != null" >
+        frien_id = #{frienId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.easy.office.model.UserFriendCollect" >
+    update user_friend_collect
+    set user_id = #{userId,jdbcType=INTEGER},
+      frien_id = #{frienId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

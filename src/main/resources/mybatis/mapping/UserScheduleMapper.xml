@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easy.office.mapper.UserScheduleMapper" >
+  <resultMap id="BaseResultMap" type="com.easy.office.model.UserSchedule" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="remind_type" property="remindType" jdbcType="VARCHAR" />
+    <result column="remind_time" property="remindTime" jdbcType="TIMESTAMP" />
+    <result column="privacy" property="privacy" jdbcType="VARCHAR" />
+    <result column="describe_text" property="describeText" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, title, begin_time, end_time, remind_type, remind_time, privacy, describe_text
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_schedule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_schedule
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.easy.office.model.UserSchedule" >
+    insert into user_schedule (id, user_id, title, 
+      begin_time, end_time, remind_type, 
+      remind_time, privacy, describe_text
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{remindType,jdbcType=VARCHAR}, 
+      #{remindTime,jdbcType=TIMESTAMP}, #{privacy,jdbcType=VARCHAR}, #{describeText,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.easy.office.model.UserSchedule" >
+    insert into user_schedule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="remindType != null" >
+        remind_type,
+      </if>
+      <if test="remindTime != null" >
+        remind_time,
+      </if>
+      <if test="privacy != null" >
+        privacy,
+      </if>
+      <if test="describeText != null" >
+        describe_text,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remindType != null" >
+        #{remindType,jdbcType=VARCHAR},
+      </if>
+      <if test="remindTime != null" >
+        #{remindTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="privacy != null" >
+        #{privacy,jdbcType=VARCHAR},
+      </if>
+      <if test="describeText != null" >
+        #{describeText,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.easy.office.model.UserSchedule" >
+    update user_schedule
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remindType != null" >
+        remind_type = #{remindType,jdbcType=VARCHAR},
+      </if>
+      <if test="remindTime != null" >
+        remind_time = #{remindTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="privacy != null" >
+        privacy = #{privacy,jdbcType=VARCHAR},
+      </if>
+      <if test="describeText != null" >
+        describe_text = #{describeText,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.easy.office.model.UserSchedule" >
+    update user_schedule
+    set user_id = #{userId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      remind_type = #{remindType,jdbcType=VARCHAR},
+      remind_time = #{remindTime,jdbcType=TIMESTAMP},
+      privacy = #{privacy,jdbcType=VARCHAR},
+      describe_text = #{describeText,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
