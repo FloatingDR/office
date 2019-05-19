@@ -54,6 +54,11 @@ public class AuthController {
     @PostMapping("/update")
     public ResponseBean updateUserInfo(@RequestBody UserInfo userInfo){ return userService.updateUserInfo(userInfo); }
 
+    /**
+     * 通过userId得到用户信息
+     * @param userId
+     * @return
+     */
     @GetMapping("/get_userInfo_by_id/{userId}")
     public ResponseBean getUserInfoByUserId(@PathVariable Integer userId){
         return userService.getUserInfo(userId);

@@ -83,7 +83,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
                 responseError(response, e.getMessage());
             }
         }
-        //如果请求头不存在 Token，则可能是执行登陆操作或者是游客状态访问，无需检查 token，直接返回 true
+        //如果请求头不存在 Token，不允许访问，返回false
         return false;
     }
     /**

@@ -44,6 +44,13 @@ public interface UserMapper {
      */
     User getInfoById(Integer userId);
 
+    /**
+     * 通过用户名得到权限角色
+     * @param username
+     * @return role_style
+     */
+    String getRoleStyle(String username);
+
     int deleteByPrimaryKey(Integer userId);
 
     int insertSelective(User record);

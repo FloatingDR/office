@@ -10,11 +10,14 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author taylor
@@ -46,8 +49,15 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-
-        return null;
+        String username = JWTUtil.getUsername(principals.getPrimaryPrincipal().toString());
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+        //获得该用户角色
+        String roleStyle=userMapper.getRoleStyle(username);
+        Set<String> roleStyleSet = new HashSet<>();
+        roleStyleSet.add(roleStyle);
+        //设置该用户拥有的角色和权限
+        simpleAuthorizationInfo.setRoles(roleStyleSet);
+        return simpleAuthorizationInfo;
     }
 
     /**

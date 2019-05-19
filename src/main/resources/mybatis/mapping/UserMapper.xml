@@ -20,6 +20,12 @@
     from user
     where user_id=#{userId}
   </select>
+  <select id="getRoleStyle" resultType="string" parameterType="string">
+    select role_style
+    from user inner join role
+    on user.role_id=role.role_id
+    where username=#{username}
+  </select>
   <select id="selectByUsername" resultType="Integer" parameterType="com.easy.office.model.User" >
     select IFNULL(MAX(user_id),-1)
     from user

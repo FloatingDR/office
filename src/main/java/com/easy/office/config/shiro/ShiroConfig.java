@@ -51,6 +51,7 @@ public class ShiroConfig {
         Map<String, String> filterRuleMap = new HashMap<>(16);
         filterRuleMap.put("/api/auth/hello", "jwt");
         filterRuleMap.put("/api/auth/login", "anon");
+        filterRuleMap.put("/api/auth/add", "anon");
         filterRuleMap.put("/druid/**","anon");
 
         // 所有请求通过JWT Filter
